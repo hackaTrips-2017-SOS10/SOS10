@@ -131,4 +131,45 @@
 			height: 44px;
 		}
 	}
+	.hotels{
+		text-align: left;
+		ul{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		a{
+			margin: .3em 0;
+			display: block;
+			&:hover{
+				background-color: $border-color;
+				text-decoration: none;
+				color: $colorW;
+			}
+		}
+		span{
+			background-color: $gray;
+			display: inline-block;
+			min-width: 4em;
+			margin-right: 1em;
+			text-align: center;
+			color: $colorW;
+			padding: .5em;
+		}
+		.level1 span{
+			background-color: $colorL1;
+		}
+		.level2 span{
+			background-color: $colorL2;
+		}
+		.level3 span{
+			background-color: $colorL3;
+		}
+		.level4 span{
+			background-color: $colorL4;
+		}
+		.level5 span{
+			background-color: $colorL5;
+		}
+	}
 }

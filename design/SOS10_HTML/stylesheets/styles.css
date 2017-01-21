@@ -8931,3 +8931,54 @@ strong {
 #sos10Box .flight img {
   height: 44px;
 }
+/* line 134, ../sass/_sos10Box.scss */
+#sos10Box .hotels {
+  text-align: left;
+}
+/* line 136, ../sass/_sos10Box.scss */
+#sos10Box .hotels ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+/* line 141, ../sass/_sos10Box.scss */
+#sos10Box .hotels a {
+  margin: .3em 0;
+  display: block;
+}
+/* line 144, ../sass/_sos10Box.scss */
+#sos10Box .hotels a:hover {
+  background-color: #8f8f8f;
+  text-decoration: none;
+  color: #fff;
+}
+/* line 150, ../sass/_sos10Box.scss */
+#sos10Box .hotels span {
+  background-color: #555555;
+  display: inline-block;
+  min-width: 4em;
+  margin-right: 1em;
+  text-align: center;
+  color: #fff;
+  padding: .5em;
+}
+/* line 159, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level1 span {
+  background-color: #ffa600;
+}
+/* line 162, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level2 span {
+  background-color: #ff6600;
+}
+/* line 165, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level3 span {
+  background-color: #993904;
+}
+/* line 168, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level4 span {
+  background-color: #cc2113;
+}
+/* line 171, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level5 span {
+  background-color: #000;
+}
