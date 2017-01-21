@@ -31,10 +31,10 @@ function showHotel() {
     }
 }
 
-function checkGeo() {
-    if (geoLat !== 'undefined') {
+function checkGeo() { 
+    if (typeof(geoLat) != 'undefined') {
         clearTimeout(checkGeo);
-        retrieveHotel(showHotel);
+        retrieveHotel();
     }
 }
 
@@ -51,7 +51,7 @@ var geoSuccess = function(position) {
 }
 
 function retrieveHotel() {
-    alert("Calling api");
+//    alert("Calling api");
 
     var hotelName = 'Windsor Luxury';
     var departureCity = 'Madrid';
