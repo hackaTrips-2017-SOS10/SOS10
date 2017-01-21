@@ -1,0 +1,112 @@
+#sos10{
+	display: table;
+	position: fixed;
+	top:0;
+	left: 0;
+	right: 0;
+	border-top: 0;
+	width: 100%;
+	height: 100%;
+	section{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+}
+#sos10Box{
+	max-width: 520px;
+	min-height: 200px;
+	padding: 70px 40px 40px;
+	margin: auto;
+	border: 1px solid $border-color;
+	@include border-radius(4px);
+	background-origin: $colorW;
+	position: relative;
+	@include box-shadow(5px 5px 10px 0px rgba(0,0,0,0.14));
+	.circle{
+		border-radius:50%;
+		position: absolute;
+		top: -97.5px;
+		left: 50%;
+		margin-left: -97.5px;
+		padding: 36px;
+		width: 195px;
+		height: 195px;
+		color: $colorW;
+		background-color:$colorL0;
+		text-align: center;
+		font-size: 35px;
+		line-height: 1.3em;
+		@include transition(all .5s);
+		strong{
+			font-size: 60px;
+			display: block;
+		}
+		img{
+			height: 35px;
+			clear: both;
+		}
+	}
+	.levels{
+		position: relative;
+		&:before{
+			display: block;
+			width: 20px;
+			height: 20px;
+			border: 3px solid $colorW;
+			@include border-radius(50%);
+			content: "";
+			position: absolute;
+			bottom: 0;
+			@include transition(all .5s);
+		}
+	}
+	&.level0{ 
+		.circle{
+			background-color: $colorL0;
+		}
+		.levels:before{
+			left:0;
+		}
+	}
+	&.level1{ 
+		.circle{
+			background-color: $colorL1;
+		}
+		.levels:before{
+			left:20%;
+		}
+	}
+	&.level2{ 
+		.circle{
+			background-color: $colorL2;
+		}
+		.levels:before{
+			left:40%;
+		}
+	}
+	&.level3{ 
+		.circle{
+			background-color: $colorL3;
+		}
+		.levels:before{
+			left:60%;
+		}
+	}
+	&.level4{ 
+		.circle{
+			background-color: $colorL4;
+		}
+		.levels:before{
+			left:80%;
+		}
+	}
+	&.level5{ 
+		.circle{
+			background-color: $colorL5;
+		}
+		.levels:before{
+			right: 0;
+		}
+	}
+}
