@@ -15,57 +15,115 @@
 		text-align: center;
 	}
 	&.level0{
-	background-image: url("../images/photos/level0.jpg");
 		.circle{
 			background-color: $colorL0;
 		}
 		.levels:before{
 			left:0;
 		}
+		.bgl0{
+			opacity: 1;
+			z-index: 1;
+		}
 	}
 	&.level1{
-		background-image: url("../images/photos/level1.jpg");
 		.circle{
 			background-color: $colorL1;
 		}
 		.levels:before{
 			left:20%;
 		}
+		.bgl1{
+			opacity: 1;
+			z-index: 1;
+		}
 	}
 	&.level2{
-		background-image: url("../images/photos/level2.jpg");
 		.circle{
 			background-color: $colorL2;
 		}
 		.levels:before{
 			left:40%;
 		}
+		.bgl2{
+			opacity: 1;
+			z-index: 1;
+		}
 	}
 	&.level3{
-		background-image: url("../images/photos/level3.png");
 		.circle{
 			background-color: $colorL3;
 		}
 		.levels:before{
 			left:60%;
 		}
+		.bgl3{
+			opacity: 1;
+			z-index: 1;
+		}
 	}
 	&.level4{
-		background-image: url("../images/photos/level4.jpg");
 		.circle{
 			background-color: $colorL4;
 		}
 		.levels:before{
 			left:80%;
 		}
+		.bgl4{
+			opacity: 1;
+			z-index: 1;
+		}
 	}
 	&.level5{
-		background-image: url("../images/photos/level5.jpg");
 		.circle{
 			background-color: $colorL5;
 		}
 		.levels:before{
 			left: calc(100% - 20px);
+		}
+		.bgl5{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	.bg{
+		position: fixed;
+		z-index: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		>div{
+			@include transition(all 1s);
+			background-position: 50%;
+			background-size: cover;
+			opacity: 0;
+			position: fixed;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.bgl0{
+			background-image: url("../images/photos/level0.jpg");
+		}
+		.bgl1{
+			background-image: url("../images/photos/level1.jpg");
+		}
+		.bgl2{
+			background-image: url("../images/photos/level2.jpg");
+		}
+		.bgl3{
+			background-image: url("../images/photos/level3.jpg");
+		}
+		.bgl4{
+			background-image: url("../images/photos/level4.jpg");
+		}
+		.bgl5{
+			background-image: url("../images/photos/level5.jpg");
 		}
 	}
 }
