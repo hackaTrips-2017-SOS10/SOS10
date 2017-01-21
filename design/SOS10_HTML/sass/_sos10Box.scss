@@ -106,7 +106,29 @@
 			background-color: $colorL5;
 		}
 		.levels:before{
-			right: 0;
+			left: calc(100% - 20px);
+		}
+	}
+	.flight{
+		display: table;
+		width: 100%;
+		margin-bottom: 1em;
+		margin-top: 2em;
+		padding: 1em;
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+		strong{
+			display: block;
+		}
+		> div{
+			vertical-align: middle;
+			display: table-cell;
+		}
+		.footprint{
+			font-size: 1.5em;
+		}
+		img{
+			height: 44px;
 		}
 	}
 }
