@@ -14,8 +14,31 @@ d3
 var geoLat;
 var geoLong;
 
-var req;
+var req = new XMLHttpRequest();
+
+req.onreadystatechange = showHotel;
+
 var resp;
+
+function showHotel() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            resp = JSON.parse(req.responseText);
+            console.log(resp);
+        } else {
+            console.log('Error: ' + req.status);
+        }
+    }
+}
+
+function checkGeo() {
+    if (geoLat !== 'undefined') {
+        clearTimeout(checkGeo);
+        retrieveHotel(showHotel);
+    }
+}
+
+setTimeout(checkGeo, 500);
 
 var geoSuccess = function(position) {
 
@@ -24,9 +47,11 @@ var geoSuccess = function(position) {
     geoLat = startPos.coords.latitude;
     geoLong = startPos.coords.longitude;
 
-    req = new XMLHttpRequest();
+    retrieveHotel();
+}
 
-    req.onreadystatechange = showHotel;
+function retrieveHotel() {
+    alert("Calling api");
 
     var hotelName = 'Windsor Luxury';
     var departureCity = 'Madrid';
@@ -53,15 +78,3 @@ $('#sos10Box').click(function(evt) {
 });
 
 navigator.geolocation.getCurrentPosition(geoSuccess, null);
-
-function showHotel(req) {
-    if (req.readyState == 4) {
-        if (req.status == 200) {
-            resp = JSON.parse(req.responseText);
-            console.log(resp);
-            alert(resp);
-        } else {
-            console.log('Error: ' + req.status);
-        }
-    }
-}
