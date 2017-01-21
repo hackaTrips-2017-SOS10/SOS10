@@ -1,21 +1,23 @@
 <html>
   <head>
     <style>
-      body { 
+    body { 
       min-width: 420px;
       min-height: 420px;
       overflow-x: hidden; 
       font-family: Arial, sans-serif; 
-      font-size: 12px; 
-      }
-      input, textarea { 
+      font-size: 12px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    input, textarea { 
       width: 420px; 
-      }
-      input#save { 
+    }
+    input#save { 
       font-weight: bold; width: auto; 
-      }
+}
     </style>
-    <style type="text/css" style="display:none">body {
+    <style type="text/css" style="display:none">
+/*      body {
       font: 10px sans-serif;
       }
 
@@ -79,12 +81,30 @@
       top: 100%;
       left: 0;
       }
-
+*/
     </style>
     <script src="d3.v4.min.js"></script>
-  </head>
-  <body>
-    <h1>SOS10</h1>
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <link rel="stylesheet" href="stylesheets/animate.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,800" rel="stylesheet">
+</head>
+<body>
+        <div id="sos10">
+                <section>
+                        <div id="sos10Box" class="level2">
+                                <div class="circle">
+                                        <strong>87.5</strong>
+                                        <div>
+                                                KgCo<sub>2</sub>
+                                        </div>
+                                        <img src="images/userNight.svg" alt="">
+                                </div>
+                                <div class="levels">
+                                        <img src="images/levels.svg" alt="">
+                                </div>
+                        </div>
+                </section>
+        </div>
     <script src="popup.js"></script>
   </body>
 </html>
