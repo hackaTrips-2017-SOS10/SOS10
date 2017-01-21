@@ -7,15 +7,71 @@
 	border-top: 0;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
+	background-position: 50%;
 	section{
 		display: table-cell;
 		vertical-align: middle;
 		text-align: center;
 	}
+	&.level0{
+	background-image: url("../images/photos/level0.jpg");
+		.circle{
+			background-color: $colorL0;
+		}
+		.levels:before{
+			left:0;
+		}
+	}
+	&.level1{
+		background-image: url("../images/photos/level1.jpg");
+		.circle{
+			background-color: $colorL1;
+		}
+		.levels:before{
+			left:20%;
+		}
+	}
+	&.level2{
+		background-image: url("../images/photos/level2.jpg");
+		.circle{
+			background-color: $colorL2;
+		}
+		.levels:before{
+			left:40%;
+		}
+	}
+	&.level3{
+		background-image: url("../images/photos/level3.png");
+		.circle{
+			background-color: $colorL3;
+		}
+		.levels:before{
+			left:60%;
+		}
+	}
+	&.level4{
+		background-image: url("../images/photos/level4.jpg");
+		.circle{
+			background-color: $colorL4;
+		}
+		.levels:before{
+			left:80%;
+		}
+	}
+	&.level5{
+		background-image: url("../images/photos/level5.jpg");
+		.circle{
+			background-color: $colorL5;
+		}
+		.levels:before{
+			left: calc(100% - 20px);
+		}
+	}
 }
 #sos10Box{
+	background-color: rgba($colorW, .95);
 	max-width: 520px;
-	min-height: 200px;
 	padding: 70px 40px 40px;
 	margin: auto;
 	border: 1px solid $border-color;
@@ -26,7 +82,7 @@
 	.circle{
 		border-radius:50%;
 		position: absolute;
-		top: -97.5px;
+		top: -85px;
 		left: 50%;
 		margin-left: -97.5px;
 		padding: 36px;
@@ -59,54 +115,6 @@
 			position: absolute;
 			bottom: 0;
 			@include transition(all .5s);
-		}
-	}
-	&.level0{ 
-		.circle{
-			background-color: $colorL0;
-		}
-		.levels:before{
-			left:0;
-		}
-	}
-	&.level1{ 
-		.circle{
-			background-color: $colorL1;
-		}
-		.levels:before{
-			left:20%;
-		}
-	}
-	&.level2{ 
-		.circle{
-			background-color: $colorL2;
-		}
-		.levels:before{
-			left:40%;
-		}
-	}
-	&.level3{ 
-		.circle{
-			background-color: $colorL3;
-		}
-		.levels:before{
-			left:60%;
-		}
-	}
-	&.level4{ 
-		.circle{
-			background-color: $colorL4;
-		}
-		.levels:before{
-			left:80%;
-		}
-	}
-	&.level5{ 
-		.circle{
-			background-color: $colorL5;
-		}
-		.levels:before{
-			left: calc(100% - 20px);
 		}
 	}
 	.flight{
@@ -170,6 +178,25 @@
 		}
 		.level5 span{
 			background-color: $colorL5;
+		}
+	}
+	.nav{
+		div{
+			cursor: pointer;
+			width: 45px;
+			position: absolute;
+			top:calc(50% - 22.5px);
+			&.prev{
+				left: -60px;
+			}
+			&.next{
+				right: -60px;
+			}
+			@include transform(scale(1));
+			&:hover{
+				@include transform(scale(1.2));
+				@include transition(all .5s);
+			}
 		}
 	}
 }
