@@ -8784,18 +8784,92 @@ strong {
   border-top: 0;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  background-position: 50%;
 }
-/* line 10, ../sass/_sos10Box.scss */
+/* line 12, ../sass/_sos10Box.scss */
 #sos10 section {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
+/* line 17, ../sass/_sos10Box.scss */
+#sos10.level0 {
+  background-image: url("../images/photos/level0.jpg");
+}
+/* line 19, ../sass/_sos10Box.scss */
+#sos10.level0 .circle {
+  background-color: #8cc63f;
+}
+/* line 22, ../sass/_sos10Box.scss */
+#sos10.level0 .levels:before {
+  left: 0;
+}
+/* line 26, ../sass/_sos10Box.scss */
+#sos10.level1 {
+  background-image: url("../images/photos/level1.jpg");
+}
+/* line 28, ../sass/_sos10Box.scss */
+#sos10.level1 .circle {
+  background-color: #ffa600;
+}
+/* line 31, ../sass/_sos10Box.scss */
+#sos10.level1 .levels:before {
+  left: 20%;
+}
+/* line 35, ../sass/_sos10Box.scss */
+#sos10.level2 {
+  background-image: url("../images/photos/level2.jpg");
+}
+/* line 37, ../sass/_sos10Box.scss */
+#sos10.level2 .circle {
+  background-color: #ff6600;
+}
+/* line 40, ../sass/_sos10Box.scss */
+#sos10.level2 .levels:before {
+  left: 40%;
+}
+/* line 44, ../sass/_sos10Box.scss */
+#sos10.level3 {
+  background-image: url("../images/photos/level3.png");
+}
+/* line 46, ../sass/_sos10Box.scss */
+#sos10.level3 .circle {
+  background-color: #993904;
+}
+/* line 49, ../sass/_sos10Box.scss */
+#sos10.level3 .levels:before {
+  left: 60%;
+}
+/* line 53, ../sass/_sos10Box.scss */
+#sos10.level4 {
+  background-image: url("../images/photos/level4.jpg");
+}
+/* line 55, ../sass/_sos10Box.scss */
+#sos10.level4 .circle {
+  background-color: #cc2113;
+}
+/* line 58, ../sass/_sos10Box.scss */
+#sos10.level4 .levels:before {
+  left: 80%;
+}
+/* line 62, ../sass/_sos10Box.scss */
+#sos10.level5 {
+  background-image: url("../images/photos/level5.jpg");
+}
+/* line 64, ../sass/_sos10Box.scss */
+#sos10.level5 .circle {
+  background-color: #000;
+}
+/* line 67, ../sass/_sos10Box.scss */
+#sos10.level5 .levels:before {
+  left: calc(100% - 20px);
+}
 
-/* line 16, ../sass/_sos10Box.scss */
+/* line 72, ../sass/_sos10Box.scss */
 #sos10Box {
+  background-color: rgba(255, 255, 255, 0.95);
   max-width: 520px;
-  min-height: 200px;
   padding: 70px 40px 40px;
   margin: auto;
   border: 1px solid #8f8f8f;
@@ -8807,11 +8881,11 @@ strong {
   -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.14);
   box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.14);
 }
-/* line 26, ../sass/_sos10Box.scss */
+/* line 82, ../sass/_sos10Box.scss */
 #sos10Box .circle {
   border-radius: 50%;
   position: absolute;
-  top: -97.5px;
+  top: -85px;
   left: 50%;
   margin-left: -97.5px;
   padding: 36px;
@@ -8826,21 +8900,21 @@ strong {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 41, ../sass/_sos10Box.scss */
+/* line 97, ../sass/_sos10Box.scss */
 #sos10Box .circle strong {
   font-size: 60px;
   display: block;
 }
-/* line 45, ../sass/_sos10Box.scss */
+/* line 101, ../sass/_sos10Box.scss */
 #sos10Box .circle img {
   height: 35px;
   clear: both;
 }
-/* line 50, ../sass/_sos10Box.scss */
+/* line 106, ../sass/_sos10Box.scss */
 #sos10Box .levels {
   position: relative;
 }
-/* line 52, ../sass/_sos10Box.scss */
+/* line 108, ../sass/_sos10Box.scss */
 #sos10Box .levels:before {
   display: block;
   width: 20px;
@@ -8856,55 +8930,7 @@ strong {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 65, ../sass/_sos10Box.scss */
-#sos10Box.level0 .circle {
-  background-color: #8cc63f;
-}
-/* line 68, ../sass/_sos10Box.scss */
-#sos10Box.level0 .levels:before {
-  left: 0;
-}
-/* line 73, ../sass/_sos10Box.scss */
-#sos10Box.level1 .circle {
-  background-color: #ffa600;
-}
-/* line 76, ../sass/_sos10Box.scss */
-#sos10Box.level1 .levels:before {
-  left: 20%;
-}
-/* line 81, ../sass/_sos10Box.scss */
-#sos10Box.level2 .circle {
-  background-color: #ff6600;
-}
-/* line 84, ../sass/_sos10Box.scss */
-#sos10Box.level2 .levels:before {
-  left: 40%;
-}
-/* line 89, ../sass/_sos10Box.scss */
-#sos10Box.level3 .circle {
-  background-color: #993904;
-}
-/* line 92, ../sass/_sos10Box.scss */
-#sos10Box.level3 .levels:before {
-  left: 60%;
-}
-/* line 97, ../sass/_sos10Box.scss */
-#sos10Box.level4 .circle {
-  background-color: #cc2113;
-}
-/* line 100, ../sass/_sos10Box.scss */
-#sos10Box.level4 .levels:before {
-  left: 80%;
-}
-/* line 105, ../sass/_sos10Box.scss */
-#sos10Box.level5 .circle {
-  background-color: #000;
-}
-/* line 108, ../sass/_sos10Box.scss */
-#sos10Box.level5 .levels:before {
-  left: calc(100% - 20px);
-}
-/* line 112, ../sass/_sos10Box.scss */
+/* line 120, ../sass/_sos10Box.scss */
 #sos10Box .flight {
   display: table;
   width: 100%;
@@ -8914,45 +8940,45 @@ strong {
   border-top: 1px solid #8f8f8f;
   border-bottom: 1px solid #8f8f8f;
 }
-/* line 120, ../sass/_sos10Box.scss */
+/* line 128, ../sass/_sos10Box.scss */
 #sos10Box .flight strong {
   display: block;
 }
-/* line 123, ../sass/_sos10Box.scss */
+/* line 131, ../sass/_sos10Box.scss */
 #sos10Box .flight > div {
   vertical-align: middle;
   display: table-cell;
 }
-/* line 127, ../sass/_sos10Box.scss */
+/* line 135, ../sass/_sos10Box.scss */
 #sos10Box .flight .footprint {
   font-size: 1.5em;
 }
-/* line 130, ../sass/_sos10Box.scss */
+/* line 138, ../sass/_sos10Box.scss */
 #sos10Box .flight img {
   height: 44px;
 }
-/* line 134, ../sass/_sos10Box.scss */
+/* line 142, ../sass/_sos10Box.scss */
 #sos10Box .hotels {
   text-align: left;
 }
-/* line 136, ../sass/_sos10Box.scss */
+/* line 144, ../sass/_sos10Box.scss */
 #sos10Box .hotels ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-/* line 141, ../sass/_sos10Box.scss */
+/* line 149, ../sass/_sos10Box.scss */
 #sos10Box .hotels a {
   margin: .3em 0;
   display: block;
 }
-/* line 144, ../sass/_sos10Box.scss */
+/* line 152, ../sass/_sos10Box.scss */
 #sos10Box .hotels a:hover {
   background-color: #8f8f8f;
   text-decoration: none;
   color: #fff;
 }
-/* line 150, ../sass/_sos10Box.scss */
+/* line 158, ../sass/_sos10Box.scss */
 #sos10Box .hotels span {
   background-color: #555555;
   display: inline-block;
@@ -8962,23 +8988,52 @@ strong {
   color: #fff;
   padding: .5em;
 }
-/* line 159, ../sass/_sos10Box.scss */
+/* line 167, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level1 span {
   background-color: #ffa600;
 }
-/* line 162, ../sass/_sos10Box.scss */
+/* line 170, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level2 span {
   background-color: #ff6600;
 }
-/* line 165, ../sass/_sos10Box.scss */
+/* line 173, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level3 span {
   background-color: #993904;
 }
-/* line 168, ../sass/_sos10Box.scss */
+/* line 176, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level4 span {
   background-color: #cc2113;
 }
-/* line 171, ../sass/_sos10Box.scss */
+/* line 179, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level5 span {
   background-color: #000;
+}
+/* line 184, ../sass/_sos10Box.scss */
+#sos10Box .nav div {
+  cursor: pointer;
+  width: 45px;
+  position: absolute;
+  top: calc(50% - 22.5px);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+/* line 189, ../sass/_sos10Box.scss */
+#sos10Box .nav div.prev {
+  left: -60px;
+}
+/* line 192, ../sass/_sos10Box.scss */
+#sos10Box .nav div.next {
+  right: -60px;
+}
+/* line 196, ../sass/_sos10Box.scss */
+#sos10Box .nav div:hover {
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
