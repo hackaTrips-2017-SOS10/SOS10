@@ -22,6 +22,10 @@ var geoSuccess = function(position) {
     geoLong = startPos.coords.longitude;
   };
 
+//$('#sos10Box').click(function(evt) {
+//    document.close();
+//});
+
 navigator.geolocation.getCurrentPosition(geoSuccess, null);
 
 var req = new XMLHttpRequest();
