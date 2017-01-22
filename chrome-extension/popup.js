@@ -250,11 +250,14 @@ function analyzeContent(content) {
             };
 
             documents.push(d);
+            console.log(d);
         }
     }
 
     var textAnalysisUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases';
 
+    console.log("Calling " + textAnalysisUrl);
+    
     var textAnalysisInput = { "documents" : documents };
 
 //    console.log(JSON.stringify(textAnalysisInput));
@@ -279,10 +282,12 @@ function analyzeKeywords(keywords) {
             var d = documents[i];
             var keyPhrases = d.keyPhrases;
             for (var j = 0; j < keyPhrases.length; j++) {
-                if (/^[hH]otel /.test(keyPhrases[j])) {
-                    hotelName = keyPhrases[j].replace(/^[hH]otel /g, "");
-                    console.log("Found hotel candidate: " + hotelName);
-                    hotelNames.push(hotelName);
+                if (/[hH]otel /.test(keyPhrases[j])) {
+                    hotelName = keyPhrases[j].replace(/^[eE]l [hH]otel /g, "").replace(/^[hH]otel /g, "").replace(/ es .*/g, "");
+                    if (hotelNames.indexOf(hotelName) > -1) {
+                        console.log("Found hotel candidate: " + hotelName);                    
+                        hotelNames.push(hotelName);
+                    }
                 }
             }
         }
