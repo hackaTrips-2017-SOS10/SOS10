@@ -182,9 +182,9 @@ function retrieveHotel(hotelName) {
     }
 };
 
-$('#sos10Box').click(function(evt) {
-    window.close();
-});
+//$('#sos10Box').click(function(evt) {
+//    window.close();
+//});
 
 navigator.geolocation.getCurrentPosition(geoSuccess, null);
 
@@ -236,10 +236,11 @@ function mapHotelToUI(hotelInfo) {
     $('#arrivalCity').text(hotelInfo.arrivalCity);
     $('#flightDistanceInKms').text(formatDouble(hotelInfo.flightDistanceInKms));
     $('#flightco2footprint').text(formatDouble(hotelInfo.flightco2footprint));
-    $('#alternateHotelCount').prepend(hotelInfo.alternativeHotels.length);
+    $('#alternateHotelCount').text(hotelInfo.alternativeHotels.length + ' Hoteles cercanos');
 
     var alternateHotelList = $('#alternateHotels');
-
+    alternateHotelList.empty();
+    
     for (i = 0; i < hotelInfo.alternativeHotels.length; i++) {
         var alternateHotel = hotelInfo.alternativeHotels[i];
 
@@ -340,6 +341,40 @@ function analyzeKeywords(keywords) {
 //    console.log("hotel names:");
 //    console.log(hotelNames);
 }
+
+$('.next').click(function(evt) {
+    var found = false;
+    var index = hotelNameIndex;
+    while (!found) {
+        index++;
+        if (index >= hotelNames.length) {
+            index = 0;
+        }
+        if (typeof(ch[hotelNames[index]]) != 'undefined') {
+            found = true;
+            hotelNameIndex = index;
+            break;
+        }
+    }
+    hotelName = hotelNames[hotelNameIndex];
+    mapHotelToUI(ch[hotelName]);
+});
+
+$('.prev').click(function(evt) {
+    var found = false;
+    var index = hotelNameIndex;
+    while (!found) {
+        index--;
+        if (index < 0) {
+            index = hotelNames.length - 1;
+        }
+        if (typeof(ch[hotelNames[index]]) != 'undefined') {
+            found = true;
+            hotelNameIndex = index;
+            break;
+        }
+    }
+    hotelName = hotelNames[hotelNameIndex];
+    mapHotelToUI(ch[hotelName]);
+});
 window.onload = onWindowLoad;
-
-
