@@ -175,4 +175,50 @@ function mapHotelToUI(hotelInfo) {
         alternateHotelList.append('<li class="level' + alternateHotel.co2footprintCategory + '"><a href="#"><span>' + alternateHotel.co2footprint + '</span> ' + alternateHotel.hotelName + '</a></li>');
     }
 }
+
+var reqTextAnalysis = new XMLHttpRequest();
+
+function processKeywords() {
+    if (reqTextAnalysis.readyState == 4) {
+        if (reqTextAnalysis.status == 200) {
+            respTextAnalysis = JSON.parse(reqTextAnalysis.responseText);
+
+            console.log(respTextAnalysis);
+        } else {
+            console.log('Error: ' + reqTextAnalysis.status);
+        }
+    }
+}
+reqTextAnalysis.onreadystatechange = processKeywords;
+
+var respTextAnalysis;
+
+var textAnalysisUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases';
+
+var documents =
+ [
+     {
+         "language": "es",
+         "id": "1",
+         "text": "A continuación, aplique el formato JSON a las filas de entrada. El formato es el mismo para las opiniones, las frases clave y el idioma. Tenga en cuenta que cada id. debe ser único y será el id. que el sistema devuelva. El tamaño máximo de un documento que se puede enviar es de 10 KB y el tamaño máximo total de las entradas enviadas es de 1 MB. No se pueden enviar más de 1 000 documentos en una llamada. Existe una limitación de velocidad de 100 llamadas por minuto, por lo que se recomienda que envíe grandes cantidades de documentos en una sola llamada. Lenguaje es un parámetro opcional que se debe especificar si se analiza texto en un idioma que no es el inglés. A continuación, se muestra un ejemplo de la entrada, donde se ha incluido el parámetro opcional language para analizar opiniones o extraer frases clave"
+     },
+     {
+         "language": "en",
+         "id": "100",
+         "text": "The battle was to promote Clash of Kings – a real-time strategy game for iOS and Android devices. In it, players battle to build an empire, defeating enemies to retain control of their kingdoms. And today the Red King did just that, claiming victory over this monstrous opposition as confused tourists and commuters looked on."
+     }
+ ];
+
+var textAnalysisInput = { "documents" : documents };
+
+reqTextAnalysis.open('POST', textAnalysisUrl);
+reqTextAnalysis.setRequestHeader("Accept", "application/json");
+reqTextAnalysis.setRequestHeader("Ocp-Apim-Subscription-Key", "01dc9842484049cf9e894df43602c2a5");
+reqTextAnalysis.setRequestHeader("Content-Type", "application/json");
+
+reqTextAnalysis.send(JSON.stringify(textAnalysisInput));
+
+
 window.onload = onWindowLoad;
+
+
