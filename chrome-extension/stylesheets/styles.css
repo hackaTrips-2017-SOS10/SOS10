@@ -9046,6 +9046,9 @@ strong {
   padding: .5em;
 }
 /* line 227, ../sass/_sos10Box.scss */
+#sos10Box .hotels .level0 span {
+  background-color: #8cc63f;
+}
 #sos10Box .hotels .level1 span {
   background-color: #ffa600;
 }
