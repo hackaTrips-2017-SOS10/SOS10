@@ -1,0 +1,260 @@
+#sos10{
+	display: table;
+	position: fixed;
+	top:0;
+	left: 0;
+	right: 0;
+	border-top: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: 50%;
+	section{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+	&.level0{
+		.circle{
+			background-color: $colorL0;
+		}
+		.levels:before{
+			left:0;
+		}
+		.bgl0{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&.level1{
+		.circle{
+			background-color: $colorL1;
+		}
+		.levels:before{
+			left:20%;
+		}
+		.bgl1{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&.level2{
+		.circle{
+			background-color: $colorL2;
+		}
+		.levels:before{
+			left:40%;
+		}
+		.bgl2{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&.level3{
+		.circle{
+			background-color: $colorL3;
+		}
+		.levels:before{
+			left:60%;
+		}
+		.bgl3{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&.level4{
+		.circle{
+			background-color: $colorL4;
+		}
+		.levels:before{
+			left:80%;
+		}
+		.bgl4{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&.level5{
+		.circle{
+			background-color: $colorL5;
+		}
+		.levels:before{
+			left: calc(100% - 20px);
+		}
+		.bgl5{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	.bg{
+		position: fixed;
+		z-index: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		>div{
+			@include transition(all 1s);
+			background-position: 50%;
+			background-size: cover;
+			opacity: 0;
+			position: fixed;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.bgl0{
+			background-image: url("../images/photos/level0.jpg");
+		}
+		.bgl1{
+			background-image: url("../images/photos/level1.jpg");
+		}
+		.bgl2{
+			background-image: url("../images/photos/level2.jpg");
+		}
+		.bgl3{
+			background-image: url("../images/photos/level3.jpg");
+		}
+		.bgl4{
+			background-image: url("../images/photos/level4.jpg");
+		}
+		.bgl5{
+			background-image: url("../images/photos/level5.jpg");
+		}
+	}
+}
+#sos10Box{
+	background-color: rgba($colorW, .95);
+	max-width: 520px;
+	padding: 70px 40px 40px;
+	margin: auto;
+	border: 1px solid $border-color;
+	@include border-radius(4px);
+	background-origin: $colorW;
+	position: relative;
+	@include box-shadow(5px 5px 10px 0px rgba(0,0,0,0.14));
+	.circle{
+		border-radius:50%;
+		position: absolute;
+		top: -85px;
+		left: 50%;
+		margin-left: -97.5px;
+		padding: 36px;
+		width: 195px;
+		height: 195px;
+		color: $colorW;
+		background-color:$colorL0;
+		text-align: center;
+		font-size: 35px;
+		line-height: 1.3em;
+		@include transition(all .5s);
+		strong{
+			font-size: 60px;
+			display: block;
+		}
+		img{
+			height: 35px;
+			clear: both;
+		}
+	}
+	.levels{
+		position: relative;
+		&:before{
+			display: block;
+			width: 20px;
+			height: 20px;
+			border: 3px solid $colorW;
+			@include border-radius(50%);
+			content: "";
+			position: absolute;
+			bottom: 0;
+			@include transition(all .5s);
+		}
+	}
+	.flight{
+		display: table;
+		width: 100%;
+		margin-bottom: 1em;
+		margin-top: 2em;
+		padding: 1em;
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+		strong{
+			display: block;
+		}
+		> div{
+			vertical-align: middle;
+			display: table-cell;
+		}
+		.footprint{
+			font-size: 1.5em;
+		}
+		img{
+			height: 44px;
+		}
+	}
+	.hotels{
+		text-align: left;
+		ul{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		a{
+			margin: .3em 0;
+			display: block;
+			&:hover{
+				background-color: $border-color;
+				text-decoration: none;
+				color: $colorW;
+			}
+		}
+		span{
+			background-color: $gray;
+			display: inline-block;
+			min-width: 4em;
+			margin-right: 1em;
+			text-align: center;
+			color: $colorW;
+			padding: .5em;
+		}
+		.level1 span{
+			background-color: $colorL1;
+		}
+		.level2 span{
+			background-color: $colorL2;
+		}
+		.level3 span{
+			background-color: $colorL3;
+		}
+		.level4 span{
+			background-color: $colorL4;
+		}
+		.level5 span{
+			background-color: $colorL5;
+		}
+	}
+	.nav{
+		div{
+			cursor: pointer;
+			width: 45px;
+			position: absolute;
+			top:calc(50% - 22.5px);
+			&.prev{
+				left: -60px;
+			}
+			&.next{
+				right: -60px;
+			}
+			@include transform(scale(1));
+			&:hover{
+				@include transform(scale(1.2));
+				@include transition(all .5s);
+			}
+		}
+	}
+}

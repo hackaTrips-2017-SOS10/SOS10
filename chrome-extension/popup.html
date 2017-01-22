@@ -2,8 +2,9 @@
   <head>
     <style>
     body { 
-      min-width: 420px;
-      min-height: 420px;
+      min-width: 1500px;
+      width: 1500px;
+      height: 1200px;
       overflow-x: hidden; 
       font-family: Arial, sans-serif; 
       font-size: 12px;
@@ -87,25 +88,56 @@
         <link rel="stylesheet" href="stylesheets/styles.css">
         <link rel="stylesheet" href="stylesheets/animate.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,800" rel="stylesheet">
-</head>
-<body>
-        <div id="sos10">
-                <section>
-                        <div id="sos10Box" class="level2">
-                                <div class="circle">
-                                        <strong>87.5</strong>
-                                        <div>
-                                                KgCo<sub>2</sub>
-                                        </div>
-                                        <img src="images/userNight.svg" alt="">
-                                </div>
-                                <div class="levels">
-                                        <img src="images/levels.svg" alt="">
-                                </div>
-                        </div>
-                </section>
-        </div>
-        <div id="message">Injecting script...</div>
-    <script src="popup.js"></script>
+  </head>
+  <body>
+  <div id="sos10" class="level2">
+	<div class="bg">
+	<div class="bgl0"></div>
+	<div class="bgl1"></div>
+	<div class="bgl2"></div>
+	<div class="bgl3"></div>
+	<div class="bgl4"></div>
+	<div class="bgl5"></div>
+	</div>
+	<section>
+	<div id="sos10Box">
+	<div class="circle">
+	<strong id="co2footprint"></strong>
+	<div>
+	KgCo<sub>2</sub>
+	</div>
+	<img src="images/userNight.svg" alt="">
+	</div><!-- // circle -->
+	<div class="levels">
+	<img src="images/levels.svg" alt="">
+	</div><!-- /levels -->
+	<h1 class="hotelName"></h1>
+	<div class="flight">
+	<div>
+	<img src="images/flight.svg" alt="">
+	</div>
+	<div>
+	<span id="departureCity"></span> > <span id="arrivalCity"></span>
+	<strong id="flightDistanceInKms"></strong> <strong>km</strong>
+	</div>
+	<div class="footprint">
+	<strong id="flightco2footprint"></strong> <strong>kgCo2</strong>
+	</div>
+	</div>
+	<div class="hotels">
+	<h2 id="alternateHotelCount"> Hoteles cercanos</h2>
+	<ul id="alternateHotels">
+	</ul>
+	</div>
+	<div class="nav">
+	<div class="prev"><img src="images/prev.svg" alt="Hotel anterior"></div>
+	<div class="next"><img src="images/next.svg" alt="Hotel siguiente"></div>
+	</div>
+	</div><!-- // sos10Box -->
+	</section>
+  </div>
+  <div id="message">Injecting script...</div>
+  <script src="popup.js"></script>
   </body>
 </html>
+
