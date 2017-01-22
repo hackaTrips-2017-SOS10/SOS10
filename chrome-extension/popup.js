@@ -13,8 +13,11 @@ d3
 
 var geoLat;
 var geoLong;
-
+var hotelNames = new Array();
 var reqHotel = new XMLHttpRequest();
+var testHotelName = 'Windsor Luxury';
+var departureCity = 'Madrid';
+var hotelName = testHotelName;
 
 reqHotel.onreadystatechange = showHotel;
 
@@ -69,14 +72,28 @@ function showHotel() {
     }
 }
 
-function checkGeo() {
-    if (typeof(geoLat) != 'undefined') {
-        clearTimeout(checkGeo);
-        retrieveHotel();
+function checkPageProcessed() {
+    if (hotelName == testHotelName) {
+        clearTimeout(checkPageProcessedTimeout);
+        if (typeof(geoLat) != 'undefined') {
+            clearTimeout(checkGeoTimeout);
+            retrieveHotel(hotelName);
+        }
     }
 }
 
-setTimeout(checkGeo, 500);
+function checkGeo() {
+    if (typeof(geoLat) != 'undefined') {
+        clearTimeout(checkGeoTimeout);
+        if (hotelName == testHotelName) {
+            clearTimeout(checkPageProcessedTimeout);
+            retrieveHotel(hotelName);
+        }
+    }
+}
+
+var checkGeoTimeout = setTimeout(checkGeo, 500);
+var checkPageProcessedTimeout = setTimeout(checkPageProcessed, 500);
 
 var geoSuccess = function(position) {
 
@@ -84,15 +101,11 @@ var geoSuccess = function(position) {
     startPos = position;
     geoLat = startPos.coords.latitude;
     geoLong = startPos.coords.longitude;
-
-    retrieveHotel();
 };
 
-function retrieveHotel() {
+function retrieveHotel(hotelName) {
 //    alert("Calling api");
 
-    var hotelName = 'Windsor Luxury';
-    var departureCity = 'Madrid';
     //var url = 'http://private-744b35-sos10api.apiary-mock.com/tst/';
     var url = 'https://sos10.azurewebsites.net/api/HttpTriggerJS1?code=q1MoaiMxS/4XaGDAu7DgHm7wNS2cgGm/UQ3HxsyYrDLtclwBjAfcCw==';
 
@@ -187,6 +200,8 @@ function processKeywords() {
         } else {
             console.log('Error: ' + reqTextAnalysis.status);
         }
+
+        analyzeKeywords(respTextAnalysis);
     }
 }
 
@@ -205,25 +220,24 @@ function analyzeContent(content) {
     var documents = new Array();
 
     for (var i = 0; i < paragraphs.length; i++) {
-        var document = {
-            "language": "en",
-            "id": "" + i,
-            "text": paragraphs[i].innerHTML.replace(/<[^>]*>/g, "")
-        };
-        documents[i] = document;
+        var content = paragraphs[i].innerHTML.replace(/<[^>]*>/g, "");
+        content = content.substring(0, Math.min(content.length, 10000/paragraphs.length));
+        if (/[hH]otel /.test(content)) {
+            var d = {
+                "language": "en",
+                "id": "" + i,
+                "text": content
+            };
+
+            documents.push(d);
+        }
     }
-
-//    var strippedContent = doc.body.innerHTML.replace(/<[^>]*>/g, "");
-//    console.log(doc);
-
-//    strippedContent = strippedContent.substring(0, Math.min(strippedContent.length, 8000));
-//    console.log(strippedContent.length);
 
     var textAnalysisUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases';
 
     var textAnalysisInput = { "documents" : documents };
 
-    console.log(JSON.stringify(textAnalysisInput));
+//    console.log(JSON.stringify(textAnalysisInput));
 
     reqTextAnalysis.open('POST', textAnalysisUrl);
     reqTextAnalysis.setRequestHeader("Accept", "application/json");
@@ -233,6 +247,29 @@ function analyzeContent(content) {
     reqTextAnalysis.send(JSON.stringify(textAnalysisInput));
 }
 
+function analyzeKeywords(keywords) {
+
+    if (typeof(keywords) != 'undefined') {
+
+        var documents = keywords.documents;
+
+        console.log(documents);
+
+        for (var i = 0; i < documents.length; i++) {
+            var d = documents[i];
+            var keyPhrases = d.keyPhrases;
+            for (var j = 0; j < keyPhrases.length; j++) {
+                if (/^[hH]otel /.test(keyPhrases[j])) {
+                    hotelName = keyPhrases[j].replace(/^[hH]otel /g, "");
+                    console.log("Found hotel candidate: " + hotelName);
+                    hotelNames.push(hotelName);
+                }
+            }
+        }
+    } else {
+        console.log("No page keywords available");
+    }
+}
 window.onload = onWindowLoad;
 
 
