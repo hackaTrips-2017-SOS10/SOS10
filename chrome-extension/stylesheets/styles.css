@@ -8787,91 +8787,92 @@ strong {
   background-size: cover;
   background-position: 50%;
 }
-/* line 12, ../sass/_sos10Box.scss */
+/* line 13, ../sass/_sos10Box.scss */
 #sos10 section {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
   text-align: center;
+  padding-top: 100px;
 }
-/* line 18, ../sass/_sos10Box.scss */
+/* line 20, ../sass/_sos10Box.scss */
 #sos10.level0 .circle {
   background-color: #8cc63f;
 }
-/* line 21, ../sass/_sos10Box.scss */
+/* line 23, ../sass/_sos10Box.scss */
 #sos10.level0 .levels:before {
   left: 0;
 }
-/* line 24, ../sass/_sos10Box.scss */
+/* line 26, ../sass/_sos10Box.scss */
 #sos10.level0 .bgl0 {
   opacity: 1;
   z-index: 1;
 }
-/* line 30, ../sass/_sos10Box.scss */
+/* line 32, ../sass/_sos10Box.scss */
 #sos10.level1 .circle {
   background-color: #ffa600;
 }
-/* line 33, ../sass/_sos10Box.scss */
+/* line 35, ../sass/_sos10Box.scss */
 #sos10.level1 .levels:before {
   left: 20%;
 }
-/* line 36, ../sass/_sos10Box.scss */
+/* line 38, ../sass/_sos10Box.scss */
 #sos10.level1 .bgl1 {
   opacity: 1;
   z-index: 1;
 }
-/* line 42, ../sass/_sos10Box.scss */
+/* line 44, ../sass/_sos10Box.scss */
 #sos10.level2 .circle {
   background-color: #ff6600;
 }
-/* line 45, ../sass/_sos10Box.scss */
+/* line 47, ../sass/_sos10Box.scss */
 #sos10.level2 .levels:before {
   left: 40%;
 }
-/* line 48, ../sass/_sos10Box.scss */
+/* line 50, ../sass/_sos10Box.scss */
 #sos10.level2 .bgl2 {
   opacity: 1;
   z-index: 1;
 }
-/* line 54, ../sass/_sos10Box.scss */
+/* line 56, ../sass/_sos10Box.scss */
 #sos10.level3 .circle {
   background-color: #993904;
 }
-/* line 57, ../sass/_sos10Box.scss */
+/* line 59, ../sass/_sos10Box.scss */
 #sos10.level3 .levels:before {
   left: 60%;
 }
-/* line 60, ../sass/_sos10Box.scss */
+/* line 62, ../sass/_sos10Box.scss */
 #sos10.level3 .bgl3 {
   opacity: 1;
   z-index: 1;
 }
-/* line 66, ../sass/_sos10Box.scss */
+/* line 68, ../sass/_sos10Box.scss */
 #sos10.level4 .circle {
   background-color: #cc2113;
 }
-/* line 69, ../sass/_sos10Box.scss */
+/* line 71, ../sass/_sos10Box.scss */
 #sos10.level4 .levels:before {
   left: 80%;
 }
-/* line 72, ../sass/_sos10Box.scss */
+/* line 74, ../sass/_sos10Box.scss */
 #sos10.level4 .bgl4 {
   opacity: 1;
   z-index: 1;
 }
-/* line 78, ../sass/_sos10Box.scss */
+/* line 80, ../sass/_sos10Box.scss */
 #sos10.level5 .circle {
   background-color: #000;
 }
-/* line 81, ../sass/_sos10Box.scss */
+/* line 83, ../sass/_sos10Box.scss */
 #sos10.level5 .levels:before {
   left: calc(100% - 20px);
 }
-/* line 84, ../sass/_sos10Box.scss */
+/* line 86, ../sass/_sos10Box.scss */
 #sos10.level5 .bgl5 {
   opacity: 1;
   z-index: 1;
 }
-/* line 89, ../sass/_sos10Box.scss */
+/* line 91, ../sass/_sos10Box.scss */
 #sos10 .bg {
   position: fixed;
   z-index: 0;
@@ -8880,7 +8881,7 @@ strong {
   right: 0;
   bottom: 0;
 }
-/* line 96, ../sass/_sos10Box.scss */
+/* line 98, ../sass/_sos10Box.scss */
 #sos10 .bg > div {
   -webkit-transition: all 1s;
   -o-transition: all 1s;
@@ -8897,32 +8898,32 @@ strong {
   width: 100%;
   height: 100%;
 }
-/* line 110, ../sass/_sos10Box.scss */
+/* line 112, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl0 {
   background-image: url("../images/photos/level0.jpg");
 }
-/* line 113, ../sass/_sos10Box.scss */
+/* line 115, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl1 {
   background-image: url("../images/photos/level1.jpg");
 }
-/* line 116, ../sass/_sos10Box.scss */
+/* line 118, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl2 {
   background-image: url("../images/photos/level2.jpg");
 }
-/* line 119, ../sass/_sos10Box.scss */
+/* line 121, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl3 {
   background-image: url("../images/photos/level3.jpg");
 }
-/* line 122, ../sass/_sos10Box.scss */
+/* line 124, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl4 {
   background-image: url("../images/photos/level4.jpg");
 }
-/* line 125, ../sass/_sos10Box.scss */
+/* line 127, ../sass/_sos10Box.scss */
 #sos10 .bg .bgl5 {
   background-image: url("../images/photos/level5.jpg");
 }
 
-/* line 130, ../sass/_sos10Box.scss */
+/* line 132, ../sass/_sos10Box.scss */
 #sos10Box {
   background-color: rgba(255, 255, 255, 0.95);
   max-width: 520px;
@@ -8937,7 +8938,7 @@ strong {
   -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.14);
   box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.14);
 }
-/* line 140, ../sass/_sos10Box.scss */
+/* line 142, ../sass/_sos10Box.scss */
 #sos10Box .circle {
   border-radius: 50%;
   position: absolute;
@@ -8956,21 +8957,21 @@ strong {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 155, ../sass/_sos10Box.scss */
+/* line 157, ../sass/_sos10Box.scss */
 #sos10Box .circle strong {
   font-size: 60px;
   display: block;
 }
-/* line 159, ../sass/_sos10Box.scss */
+/* line 161, ../sass/_sos10Box.scss */
 #sos10Box .circle img {
   height: 35px;
   clear: both;
 }
-/* line 164, ../sass/_sos10Box.scss */
+/* line 166, ../sass/_sos10Box.scss */
 #sos10Box .levels {
   position: relative;
 }
-/* line 166, ../sass/_sos10Box.scss */
+/* line 168, ../sass/_sos10Box.scss */
 #sos10Box .levels:before {
   display: block;
   width: 20px;
@@ -8986,7 +8987,7 @@ strong {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 178, ../sass/_sos10Box.scss */
+/* line 180, ../sass/_sos10Box.scss */
 #sos10Box .flight {
   display: table;
   width: 100%;
@@ -8996,45 +8997,45 @@ strong {
   border-top: 1px solid #8f8f8f;
   border-bottom: 1px solid #8f8f8f;
 }
-/* line 186, ../sass/_sos10Box.scss */
+/* line 188, ../sass/_sos10Box.scss */
 #sos10Box .flight strong {
   display: block;
 }
-/* line 189, ../sass/_sos10Box.scss */
+/* line 191, ../sass/_sos10Box.scss */
 #sos10Box .flight > div {
   vertical-align: middle;
   display: table-cell;
 }
-/* line 193, ../sass/_sos10Box.scss */
+/* line 195, ../sass/_sos10Box.scss */
 #sos10Box .flight .footprint {
   font-size: 1.5em;
 }
-/* line 196, ../sass/_sos10Box.scss */
+/* line 198, ../sass/_sos10Box.scss */
 #sos10Box .flight img {
   height: 44px;
 }
-/* line 200, ../sass/_sos10Box.scss */
+/* line 202, ../sass/_sos10Box.scss */
 #sos10Box .hotels {
   text-align: left;
 }
-/* line 202, ../sass/_sos10Box.scss */
+/* line 204, ../sass/_sos10Box.scss */
 #sos10Box .hotels ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-/* line 207, ../sass/_sos10Box.scss */
+/* line 209, ../sass/_sos10Box.scss */
 #sos10Box .hotels a {
   margin: .3em 0;
   display: block;
 }
-/* line 210, ../sass/_sos10Box.scss */
+/* line 212, ../sass/_sos10Box.scss */
 #sos10Box .hotels a:hover {
   background-color: #8f8f8f;
   text-decoration: none;
   color: #fff;
 }
-/* line 216, ../sass/_sos10Box.scss */
+/* line 218, ../sass/_sos10Box.scss */
 #sos10Box .hotels span {
   background-color: #555555;
   display: inline-block;
@@ -9044,27 +9045,27 @@ strong {
   color: #fff;
   padding: .5em;
 }
-/* line 225, ../sass/_sos10Box.scss */
+/* line 227, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level1 span {
   background-color: #ffa600;
 }
-/* line 228, ../sass/_sos10Box.scss */
+/* line 230, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level2 span {
   background-color: #ff6600;
 }
-/* line 231, ../sass/_sos10Box.scss */
+/* line 233, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level3 span {
   background-color: #993904;
 }
-/* line 234, ../sass/_sos10Box.scss */
+/* line 236, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level4 span {
   background-color: #cc2113;
 }
-/* line 237, ../sass/_sos10Box.scss */
+/* line 239, ../sass/_sos10Box.scss */
 #sos10Box .hotels .level5 span {
   background-color: #000;
 }
-/* line 242, ../sass/_sos10Box.scss */
+/* line 244, ../sass/_sos10Box.scss */
 #sos10Box .nav div {
   cursor: pointer;
   width: 45px;
@@ -9075,15 +9076,15 @@ strong {
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-/* line 247, ../sass/_sos10Box.scss */
+/* line 249, ../sass/_sos10Box.scss */
 #sos10Box .nav div.prev {
   left: -60px;
 }
-/* line 250, ../sass/_sos10Box.scss */
+/* line 252, ../sass/_sos10Box.scss */
 #sos10Box .nav div.next {
   right: -60px;
 }
-/* line 254, ../sass/_sos10Box.scss */
+/* line 256, ../sass/_sos10Box.scss */
 #sos10Box .nav div:hover {
   -moz-transform: scale(1.2);
   -ms-transform: scale(1.2);

@@ -1,4 +1,5 @@
 #sos10{
+	
 	display: table;
 	position: fixed;
 	top:0;
@@ -11,8 +12,9 @@
 	background-position: 50%;
 	section{
 		display: table-cell;
-		vertical-align: middle;
+		vertical-align: top;
 		text-align: center;
+		padding-top: 100px;
 	}
 	&.level0{
 		.circle{
