@@ -48,26 +48,21 @@ var contains = function(needle) {
     return indexOf.call(this, needle) > -1;
 };
 
+function cacheHotel(hotel) {
+    ch[hotelName] = hotel;
+}
 
-function showHotel() {
-    if (typeof(ch[hotelName]) != 'undefined') {
-        mapHotelToUI(ch[hotelName]);
-    } else if (typeof(reqHotel) != 'undefined') {
-        if (reqHotel.readyState == 4) {
-            if (reqHotel.status == 200) {
-                respHotel = JSON.parse(reqHotel.responseText);
+function processHotel() {
+    if (typeof(ch[hotelName]) == 'undefined') {
+        if (typeof(reqHotel) != 'undefined') {
+        
+            if (reqHotel.readyState == 4) {
+                if (reqHotel.status == 200) {
+                    respHotel = JSON.parse(reqHotel.responseText);
 
-                console.log(respHotel);
+                    console.log(respHotel);
 
-                mapHotelToUI(respHotel);
-            } else {
-                console.log('Error: ' + reqHotel.status);
-
-                hotelNameIndex++;
-
-                if (hotelNameIndex < hotelNames.length) {
-
-                    setTimeout(tryNextHotel, 1000);
+                    cacheHotel(respHotel);
 
                 } else {
 
@@ -107,7 +102,7 @@ function showHotel() {
                             },
                         ]
                     };
-                    mapHotelToUI(respHotel);
+                    cacheHotel(respHotel);
                 }
             }
         }
@@ -122,7 +117,7 @@ function checkPageProcessed() {
         clearInterval(checkPageProcessedInterval);
         if (typeof(geoLat) != 'undefined') {
             clearInterval(checkGeoInterval);
-            tryNextHotel();
+            retrieveHotels();
         }
     }
 }
@@ -133,7 +128,7 @@ function checkGeo() {
         clearInterval(checkGeoInterval);
         if (hotelNames.length > 0) {
             clearInterval(checkPageProcessedInterval);
-            tryNextHotel();
+            retrieveHotels();
         }
     }
 }
@@ -149,17 +144,22 @@ var geoSuccess = function(position) {
     geoLong = startPos.coords.longitude;
 };
 
-function tryNextHotel() {
+function retrieveHotels() {
 
-    retrieveHotel(hotelNames[hotelNameIndex]);
+    while (hotelNameIndex < hotelNames.length) {
+        hotelName = hotelNames[hotelNameIndex++];
+        retrieveHotel(hotelName);
+    }
+    mapHotelToUI(ch[hotelNames[0]]);
 }
 
 function retrieveHotel(hotelName) {
 
-    console.log("hotel -> " + hotelName);
+    console.log("retrieveHotel(" + hotelName + ")");
+    console.log(ch[hotelName]);
     if (typeof(ch[hotelName]) == 'undefined') {
         reqHotel = new XMLHttpRequest();
-        reqHotel.onreadystatechange = showHotel;
+        reqHotel.onreadystatechange = processHotel;
 
         //var url = 'http://private-744b35-sos10api.apiary-mock.com/tst/';
         var url = 'https://sos10.azurewebsites.net/api/HttpTriggerJS1?code=q1MoaiMxS/4XaGDAu7DgHm7wNS2cgGm/UQ3HxsyYrDLtclwBjAfcCw==';
@@ -178,7 +178,7 @@ function retrieveHotel(hotelName) {
         reqHotel.open('GET', url, true);
         reqHotel.send(null);
     } else {
-        showHotel();
+        processHotel();
     }
 };
 
@@ -254,6 +254,7 @@ function processKeywords() {
         if (reqTextAnalysis.status == 200) {
             respTextAnalysis = JSON.parse(reqTextAnalysis.responseText);
 
+            console.log("Keyword response");
             console.log(respTextAnalysis);
         } else {
             console.log('Error: ' + reqTextAnalysis.status);
@@ -273,7 +274,7 @@ function analyzeContent(content) {
     var doc = parser.parseFromString(content, "text/html");
 
     var paragraphs = doc.getElementsByTagName('p');
-    console.log(paragraphs);
+//    console.log(paragraphs);
 
     var documents = new Array();
 
@@ -288,7 +289,7 @@ function analyzeContent(content) {
             };
 
             documents.push(d);
-            console.log(d);
+//            console.log(d);
         }
     }
 
@@ -314,30 +315,30 @@ function analyzeKeywords(keywords) {
 
         var documents = keywords.documents;
 
-        console.log("Documents: ");
-        console.log(documents);
+//        console.log("Documents: ");
+//        console.log(documents);
 
         for (var i = 0; i < documents.length; i++) {
             var d = documents[i];
             var keyPhrases = d.keyPhrases;
-            console.log("Key phrases");
+//            console.log("Key phrases");
             for (var j = 0; j < keyPhrases.length; j++) {
-                console.log(keyPhrases[j]);
+//                console.log(keyPhrases[j]);
                 if (/[hH]otel /.test(keyPhrases[j])) {
                     hotelName = keyPhrases[j].replace(/^[eE]l [hH]otel /g, "").replace(/^[hH]otel /g, "").replace(/ es .*/g, "");
                     if (!contains.call(hotelNames, hotelName)) {
-                        console.log("Found hotel candidate: " + hotelName);                    
+//                        console.log("Found hotel candidate: " + hotelName);                    
                         hotelNames.push(hotelName);
                     }
                 }
             }
         }
-        console.log(hotelNames);
+//        console.log(hotelNames);
     } else {
         console.log("No page keywords available");
     }
-    console.log("hotel names:");
-    console.log(hotelNames);
+//    console.log("hotel names:");
+//    console.log(hotelNames);
 }
 window.onload = onWindowLoad;
 
