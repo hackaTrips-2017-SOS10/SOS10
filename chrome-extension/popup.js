@@ -119,7 +119,7 @@ navigator.geolocation.getCurrentPosition(geoSuccess, null);
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.action == "getSource") {
-    message.innerText = request.source;
+      analyzeContent(request.source);
   }
 });
 
@@ -189,35 +189,49 @@ function processKeywords() {
         }
     }
 }
+
 reqTextAnalysis.onreadystatechange = processKeywords;
 
 var respTextAnalysis;
 
-var textAnalysisUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases';
+function analyzeContent(content) {
 
-var documents =
- [
-     {
-         "language": "es",
-         "id": "1",
-         "text": "A continuación, aplique el formato JSON a las filas de entrada. El formato es el mismo para las opiniones, las frases clave y el idioma. Tenga en cuenta que cada id. debe ser único y será el id. que el sistema devuelva. El tamaño máximo de un documento que se puede enviar es de 10 KB y el tamaño máximo total de las entradas enviadas es de 1 MB. No se pueden enviar más de 1 000 documentos en una llamada. Existe una limitación de velocidad de 100 llamadas por minuto, por lo que se recomienda que envíe grandes cantidades de documentos en una sola llamada. Lenguaje es un parámetro opcional que se debe especificar si se analiza texto en un idioma que no es el inglés. A continuación, se muestra un ejemplo de la entrada, donde se ha incluido el parámetro opcional language para analizar opiniones o extraer frases clave"
-     },
-     {
-         "language": "en",
-         "id": "100",
-         "text": "The battle was to promote Clash of Kings – a real-time strategy game for iOS and Android devices. In it, players battle to build an empire, defeating enemies to retain control of their kingdoms. And today the Red King did just that, claiming victory over this monstrous opposition as confused tourists and commuters looked on."
-     }
- ];
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(content, "text/html");
 
-var textAnalysisInput = { "documents" : documents };
+    var paragraphs = doc.getElementsByTagName('p');
+    console.log(paragraphs);
 
-reqTextAnalysis.open('POST', textAnalysisUrl);
-reqTextAnalysis.setRequestHeader("Accept", "application/json");
-reqTextAnalysis.setRequestHeader("Ocp-Apim-Subscription-Key", "01dc9842484049cf9e894df43602c2a5");
-reqTextAnalysis.setRequestHeader("Content-Type", "application/json");
+    var documents = new Array();
 
-reqTextAnalysis.send(JSON.stringify(textAnalysisInput));
+    for (var i = 0; i < paragraphs.length; i++) {
+        var document = {
+            "language": "en",
+            "id": "" + i,
+            "text": paragraphs[i].innerHTML.replace(/<[^>]*>/g, "")
+        };
+        documents[i] = document;
+    }
 
+//    var strippedContent = doc.body.innerHTML.replace(/<[^>]*>/g, "");
+//    console.log(doc);
+
+//    strippedContent = strippedContent.substring(0, Math.min(strippedContent.length, 8000));
+//    console.log(strippedContent.length);
+
+    var textAnalysisUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases';
+
+    var textAnalysisInput = { "documents" : documents };
+
+    console.log(JSON.stringify(textAnalysisInput));
+
+    reqTextAnalysis.open('POST', textAnalysisUrl);
+    reqTextAnalysis.setRequestHeader("Accept", "application/json");
+    reqTextAnalysis.setRequestHeader("Ocp-Apim-Subscription-Key", "01dc9842484049cf9e894df43602c2a5");
+    reqTextAnalysis.setRequestHeader("Content-Type", "application/json");
+
+    reqTextAnalysis.send(JSON.stringify(textAnalysisInput));
+}
 
 window.onload = onWindowLoad;
 
