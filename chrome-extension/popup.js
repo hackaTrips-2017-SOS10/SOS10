@@ -14,12 +14,10 @@ d3
 var geoLat;
 var geoLong;
 var hotelNames = new Array();
-var reqHotel = new XMLHttpRequest();
-var testHotelName = 'Windsor Luxury';
+var reqHotel;
 var departureCity = 'Madrid';
-var hotelName = testHotelName;
-
-reqHotel.onreadystatechange = showHotel;
+var hotelName;
+var hotelNameIndex = 0;
 
 var respHotel;
 
@@ -29,71 +27,85 @@ function showHotel() {
             respHotel = JSON.parse(reqHotel.responseText);
 
             console.log(respHotel);
+
+            mapHotelToUI(respHotel);
         } else {
             console.log('Error: ' + reqHotel.status);
-            respHotel = {
-                "hotelName": "WL Windsor Luxury",
-                "photoURL": "http://photo-hotels.com/hotel.jpg",
-                "co2footprint": 6.7,
-                "co2footprintCategory": 2,
-                "flightco2footprint": 789.2,
-                "departureCity": "Madrid",
-                "arrivalCity": "Mexico D.F.",
-                "flightDistanceInKms": 5690,
-                "alternativeHotels": [
-                    {
-                        "hotelName": "Other Hotel 1",
-                        "photoUrl": "http://photo-hotels.com/hotel1.jpg",
-                        "lat": 40.783,
-                        "lon": 120.234,
-                        "co2footprint": 5.2,
-                        "co2footprintCategory": 4
-                    },
-                    {
-                        "hotelName": "Other Hotel 2",
-                        "photoUrl": "http://photo-hotels.com/hotel2.jpg",
-                        "lat": -23.783,
-                        "lon": -34.234,
-                        "co2footprint": 9,
-                        "co2footprintCategory": 0
-                    },
-                    {
-                        "hotelName": "Other Hotel 3",
-                        "photoUrl": "http://photo-hotels.com/hotel3.jpg",
-                        "lat": 150.23,
-                        "lon": -45.23,
-                        "co2footprint": 2,
-                        "co2footprintCategory": 5
-                    },
-                ]
-            };
+
+            hotelNameIndex++;
+
+            if (hotelNameIndex < hotelNames.length) {
+
+                setTimeout(tryNextHotel, 1000);
+
+            } else {
+
+                respHotel = {
+                    "hotelName": "WL Windsor Luxury",
+                    "photoURL": "http://photo-hotels.com/hotel.jpg",
+                    "co2footprint": 6.7,
+                    "co2footprintCategory": 2,
+                    "flightco2footprint": 789.2,
+                    "departureCity": "Madrid",
+                    "arrivalCity": "Mexico D.F.",
+                    "flightDistanceInKms": 5690,
+                    "alternativeHotels": [
+                        {
+                            "hotelName": "Other Hotel 1",
+                            "photoUrl": "http://photo-hotels.com/hotel1.jpg",
+                            "lat": 40.783,
+                            "lon": 120.234,
+                            "co2footprint": 5.2,
+                            "co2footprintCategory": 4
+                        },
+                        {
+                            "hotelName": "Other Hotel 2",
+                            "photoUrl": "http://photo-hotels.com/hotel2.jpg",
+                            "lat": -23.783,
+                            "lon": -34.234,
+                            "co2footprint": 9,
+                            "co2footprintCategory": 0
+                        },
+                        {
+                            "hotelName": "Other Hotel 3",
+                            "photoUrl": "http://photo-hotels.com/hotel3.jpg",
+                            "lat": 150.23,
+                            "lon": -45.23,
+                            "co2footprint": 2,
+                            "co2footprintCategory": 5
+                        },
+                    ]
+                };
+                mapHotelToUI(respHotel);
+            }
         }
-        mapHotelToUI(respHotel);
     }
 }
 
 function checkPageProcessed() {
-    if (hotelName == testHotelName) {
-        clearTimeout(checkPageProcessedTimeout);
+    console.log("Checking page processed");
+    if (typeof(hotelName) != 'undefined') {
+        clearInterval(checkPageProcessedInterval);
         if (typeof(geoLat) != 'undefined') {
-            clearTimeout(checkGeoTimeout);
+            clearInterval(checkGeoInterval);
             retrieveHotel(hotelName);
         }
     }
 }
 
 function checkGeo() {
+    console.log("Checking geo");
     if (typeof(geoLat) != 'undefined') {
-        clearTimeout(checkGeoTimeout);
-        if (hotelName == testHotelName) {
-            clearTimeout(checkPageProcessedTimeout);
+        clearInterval(checkGeoInterval);
+        if (typeof(hotelName) != 'undefined') {
+            clearInterval(checkPageProcessedInterval);
             retrieveHotel(hotelName);
         }
     }
 }
 
-var checkGeoTimeout = setTimeout(checkGeo, 500);
-var checkPageProcessedTimeout = setTimeout(checkPageProcessed, 500);
+var checkGeoInterval = setInterval(checkGeo, 500);
+var checkPageProcessedInterval = setInterval(checkPageProcessed, 500);
 
 var geoSuccess = function(position) {
 
@@ -103,8 +115,16 @@ var geoSuccess = function(position) {
     geoLong = startPos.coords.longitude;
 };
 
+function tryNextHotel() {
+
+    retrieveHotel(hotelNames[hotelNameIndex]);
+}
+
 function retrieveHotel(hotelName) {
 //    alert("Calling api");
+
+    reqHotel = new XMLHttpRequest();
+    reqHotel.onreadystatechange = showHotel;
 
     //var url = 'http://private-744b35-sos10api.apiary-mock.com/tst/';
     var url = 'https://sos10.azurewebsites.net/api/HttpTriggerJS1?code=q1MoaiMxS/4XaGDAu7DgHm7wNS2cgGm/UQ3HxsyYrDLtclwBjAfcCw==';
@@ -118,7 +138,7 @@ function retrieveHotel(hotelName) {
     url = url + '&departureLon=';
     url = url + geoLong;
 
-    //alert('Calling ' + url);
+    console.log('Calling ' + url);
 
     reqHotel.open('GET', url, true);
     reqHotel.send(null);
