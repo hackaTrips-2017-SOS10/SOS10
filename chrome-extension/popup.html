@@ -1,14 +1,9 @@
 <html>
   <head>
     <style>
-    body { 
-      min-width: 1500px;
-      width: 1500px;
-      height: 1200px;
-      overflow-x: hidden; 
-      font-family: Arial, sans-serif; 
-      font-size: 12px;
-      background-color: rgba(0, 0, 0, 0.5);
+    html {
+      width: 800px;
+      height: 600px;
     }
     input, textarea { 
       width: 420px; 
@@ -104,7 +99,7 @@
 	<div class="circle">
 	<strong id="co2footprint"></strong>
 	<div>
-	KgCo<sub>2</sub>
+	Kg CO<sub>2</sub>
 	</div>
 	<img src="images/userNight.svg" alt="">
 	</div><!-- // circle -->
@@ -121,7 +116,7 @@
 	<strong id="flightDistanceInKms"></strong> <strong>km</strong>
 	</div>
 	<div class="footprint">
-	<strong id="flightco2footprint"></strong> <strong>kgCo2</strong>
+	<strong id="flightco2footprint"></strong> <strong>T CO<sub>2</sub></strong>
 	</div>
 	</div>
 	<div class="hotels">
@@ -136,7 +131,8 @@
 	</div><!-- // sos10Box -->
 	</section>
   </div>
-  <div id="message">Injecting script...</div>
+  <div id="message"></div>
+  <script src="ch.js"></script>
   <script src="popup.js"></script>
   </body>
 </html>

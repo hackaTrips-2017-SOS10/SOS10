@@ -21,62 +21,89 @@ var hotelNameIndex = 0;
 
 var respHotel;
 
-function showHotel() {
-    if (reqHotel.readyState == 4) {
-        if (reqHotel.status == 200) {
-            respHotel = JSON.parse(reqHotel.responseText);
+var contains = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
 
-            console.log(respHotel);
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
 
-            mapHotelToUI(respHotel);
-        } else {
-            console.log('Error: ' + reqHotel.status);
+            for(i = 0; i < this.length; i++) {
+                var item = this[i];
 
-            hotelNameIndex++;
+                if((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
 
-            if (hotelNameIndex < hotelNames.length) {
+            return index;
+        };
+    }
 
-                setTimeout(tryNextHotel, 1000);
+    return indexOf.call(this, needle) > -1;
+};
 
-            } else {
+function cacheHotel(hotel) {
+    ch[hotelName] = hotel;
+}
 
-                respHotel = {
-                    "hotelName": "WL Windsor Luxury",
-                    "photoURL": "http://photo-hotels.com/hotel.jpg",
-                    "co2footprint": 6.7,
-                    "co2footprintCategory": 2,
-                    "flightco2footprint": 789.2,
-                    "departureCity": "Madrid",
-                    "arrivalCity": "Mexico D.F.",
-                    "flightDistanceInKms": 5690,
-                    "alternativeHotels": [
-                        {
-                            "hotelName": "Other Hotel 1",
-                            "photoUrl": "http://photo-hotels.com/hotel1.jpg",
-                            "lat": 40.783,
-                            "lon": 120.234,
-                            "co2footprint": 5.2,
-                            "co2footprintCategory": 4
-                        },
-                        {
-                            "hotelName": "Other Hotel 2",
-                            "photoUrl": "http://photo-hotels.com/hotel2.jpg",
-                            "lat": -23.783,
-                            "lon": -34.234,
-                            "co2footprint": 9,
-                            "co2footprintCategory": 0
-                        },
-                        {
-                            "hotelName": "Other Hotel 3",
-                            "photoUrl": "http://photo-hotels.com/hotel3.jpg",
-                            "lat": 150.23,
-                            "lon": -45.23,
-                            "co2footprint": 2,
-                            "co2footprintCategory": 5
-                        },
-                    ]
-                };
-                mapHotelToUI(respHotel);
+function processHotel() {
+    if (typeof(ch[hotelName]) == 'undefined') {
+        if (typeof(reqHotel) != 'undefined') {
+        
+            if (reqHotel.readyState == 4) {
+                if (reqHotel.status == 200) {
+                    respHotel = JSON.parse(reqHotel.responseText);
+
+                    console.log(respHotel);
+
+                    cacheHotel(respHotel);
+
+                } else {
+
+                    respHotel = {
+                        "hotelName": "WL Windsor Luxury",
+                        "photoURL": "http://photo-hotels.com/hotel.jpg",
+                        "co2footprint": 6.7,
+                        "co2footprintCategory": 2,
+                        "flightco2footprint": 789.2,
+                        "departureCity": "Madrid",
+                        "arrivalCity": "Mexico D.F.",
+                        "flightDistanceInKms": 5690,
+                        "alternativeHotels": [
+                            {
+                                "hotelName": "Other Hotel 1",
+                                "photoUrl": "http://photo-hotels.com/hotel1.jpg",
+                                "lat": 40.783,
+                                "lon": 120.234,
+                                "co2footprint": 5.2,
+                                "co2footprintCategory": 4
+                            },
+                            {
+                                "hotelName": "Other Hotel 2",
+                                "photoUrl": "http://photo-hotels.com/hotel2.jpg",
+                                "lat": -23.783,
+                                "lon": -34.234,
+                                "co2footprint": 9,
+                                "co2footprintCategory": 0
+                            },
+                            {
+                                "hotelName": "Other Hotel 3",
+                                "photoUrl": "http://photo-hotels.com/hotel3.jpg",
+                                "lat": 150.23,
+                                "lon": -45.23,
+                                "co2footprint": 2,
+                                "co2footprintCategory": 5
+                            },
+                        ]
+                    };
+                    cacheHotel(respHotel);
+                }
             }
         }
     }
@@ -84,11 +111,13 @@ function showHotel() {
 
 function checkPageProcessed() {
     console.log("Checking page processed");
+//    console.log("hotel names");
+//    console.log(hotelNames);
     if (hotelNames.length > 0) {
         clearInterval(checkPageProcessedInterval);
         if (typeof(geoLat) != 'undefined') {
             clearInterval(checkGeoInterval);
-            tryNextHotel();
+            retrieveHotels();
         }
     }
 }
@@ -99,7 +128,7 @@ function checkGeo() {
         clearInterval(checkGeoInterval);
         if (hotelNames.length > 0) {
             clearInterval(checkPageProcessedInterval);
-            tryNextHotel();
+            retrieveHotels();
         }
     }
 }
@@ -115,38 +144,47 @@ var geoSuccess = function(position) {
     geoLong = startPos.coords.longitude;
 };
 
-function tryNextHotel() {
+function retrieveHotels() {
 
-    retrieveHotel(hotelNames[hotelNameIndex]);
+    while (hotelNameIndex < hotelNames.length) {
+        hotelName = hotelNames[hotelNameIndex++];
+        retrieveHotel(hotelName);
+    }
+    mapHotelToUI(ch[hotelNames[0]]);
 }
 
 function retrieveHotel(hotelName) {
-//    alert("Calling api");
 
-    reqHotel = new XMLHttpRequest();
-    reqHotel.onreadystatechange = showHotel;
+    console.log("retrieveHotel(" + hotelName + ")");
+    console.log(ch[hotelName]);
+    if (typeof(ch[hotelName]) == 'undefined') {
+        reqHotel = new XMLHttpRequest();
+        reqHotel.onreadystatechange = processHotel;
 
-    //var url = 'http://private-744b35-sos10api.apiary-mock.com/tst/';
-    var url = 'https://sos10.azurewebsites.net/api/HttpTriggerJS1?code=q1MoaiMxS/4XaGDAu7DgHm7wNS2cgGm/UQ3HxsyYrDLtclwBjAfcCw==';
+        //var url = 'http://private-744b35-sos10api.apiary-mock.com/tst/';
+        var url = 'https://sos10.azurewebsites.net/api/HttpTriggerJS1?code=q1MoaiMxS/4XaGDAu7DgHm7wNS2cgGm/UQ3HxsyYrDLtclwBjAfcCw==';
 
-    url = url + '&hotelName=';
-    url = url + hotelName;
-    url = url + '&departureCity=';
-    url = url + departureCity;
-    url = url + '&departureLat=';
-    url = url + geoLat;
-    url = url + '&departureLon=';
-    url = url + geoLong;
+        url = url + '&hotelName=';
+        url = url + hotelName;
+        url = url + '&departureCity=';
+        url = url + departureCity;
+        url = url + '&departureLat=';
+        url = url + geoLat;
+        url = url + '&departureLon=';
+        url = url + geoLong;
 
-    console.log('Calling ' + url);
+        console.log('Calling ' + url);
 
-    reqHotel.open('GET', url, true);
-    reqHotel.send(null);
+        reqHotel.open('GET', url, true);
+        reqHotel.send(null);
+    } else {
+        processHotel();
+    }
 };
 
-$('#sos10Box').click(function(evt) {
-    window.close();
-});
+//$('#sos10Box').click(function(evt) {
+//    window.close();
+//});
 
 navigator.geolocation.getCurrentPosition(geoSuccess, null);
 
@@ -198,10 +236,11 @@ function mapHotelToUI(hotelInfo) {
     $('#arrivalCity').text(hotelInfo.arrivalCity);
     $('#flightDistanceInKms').text(formatDouble(hotelInfo.flightDistanceInKms));
     $('#flightco2footprint').text(formatDouble(hotelInfo.flightco2footprint));
-    $('#alternateHotelCount').prepend(hotelInfo.alternativeHotels.length);
+    $('#alternateHotelCount').text(hotelInfo.alternativeHotels.length + ' Hoteles cercanos');
 
     var alternateHotelList = $('#alternateHotels');
-
+    alternateHotelList.empty();
+    
     for (i = 0; i < hotelInfo.alternativeHotels.length; i++) {
         var alternateHotel = hotelInfo.alternativeHotels[i];
 
@@ -216,6 +255,7 @@ function processKeywords() {
         if (reqTextAnalysis.status == 200) {
             respTextAnalysis = JSON.parse(reqTextAnalysis.responseText);
 
+            console.log("Keyword response");
             console.log(respTextAnalysis);
         } else {
             console.log('Error: ' + reqTextAnalysis.status);
@@ -235,7 +275,7 @@ function analyzeContent(content) {
     var doc = parser.parseFromString(content, "text/html");
 
     var paragraphs = doc.getElementsByTagName('p');
-    console.log(paragraphs);
+//    console.log(paragraphs);
 
     var documents = new Array();
 
@@ -250,7 +290,7 @@ function analyzeContent(content) {
             };
 
             documents.push(d);
-            console.log(d);
+//            console.log(d);
         }
     }
 
@@ -276,25 +316,65 @@ function analyzeKeywords(keywords) {
 
         var documents = keywords.documents;
 
-        console.log(documents);
+//        console.log("Documents: ");
+//        console.log(documents);
 
         for (var i = 0; i < documents.length; i++) {
             var d = documents[i];
             var keyPhrases = d.keyPhrases;
+//            console.log("Key phrases");
             for (var j = 0; j < keyPhrases.length; j++) {
+//                console.log(keyPhrases[j]);
                 if (/[hH]otel /.test(keyPhrases[j])) {
                     hotelName = keyPhrases[j].replace(/^[eE]l [hH]otel /g, "").replace(/^[hH]otel /g, "").replace(/ es .*/g, "");
-                    if (hotelNames.indexOf(hotelName) > -1) {
-                        console.log("Found hotel candidate: " + hotelName);                    
+                    if (!contains.call(hotelNames, hotelName)) {
+//                        console.log("Found hotel candidate: " + hotelName);                    
                         hotelNames.push(hotelName);
                     }
                 }
             }
         }
+//        console.log(hotelNames);
     } else {
         console.log("No page keywords available");
     }
+//    console.log("hotel names:");
+//    console.log(hotelNames);
 }
+
+$('.next').click(function(evt) {
+    var found = false;
+    var index = hotelNameIndex;
+    while (!found) {
+        index++;
+        if (index >= hotelNames.length) {
+            index = 0;
+        }
+        if (typeof(ch[hotelNames[index]]) != 'undefined') {
+            found = true;
+            hotelNameIndex = index;
+            break;
+        }
+    }
+    hotelName = hotelNames[hotelNameIndex];
+    mapHotelToUI(ch[hotelName]);
+});
+
+$('.prev').click(function(evt) {
+    var found = false;
+    var index = hotelNameIndex;
+    while (!found) {
+        index--;
+        if (index < 0) {
+            index = hotelNames.length - 1;
+        }
+        if (typeof(ch[hotelNames[index]]) != 'undefined') {
+            found = true;
+            hotelNameIndex = index;
+            break;
+        }
+    }
+    hotelName = hotelNames[hotelNameIndex];
+    mapHotelToUI(ch[hotelName]);
+});
 window.onload = onWindowLoad;
-
-
