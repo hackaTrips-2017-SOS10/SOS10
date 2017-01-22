@@ -84,11 +84,11 @@ function showHotel() {
 
 function checkPageProcessed() {
     console.log("Checking page processed");
-    if (typeof(hotelName) != 'undefined') {
+    if (hotelNames.length > 0) {
         clearInterval(checkPageProcessedInterval);
         if (typeof(geoLat) != 'undefined') {
             clearInterval(checkGeoInterval);
-            retrieveHotel(hotelName);
+            tryNextHotel();
         }
     }
 }
@@ -97,9 +97,9 @@ function checkGeo() {
     console.log("Checking geo");
     if (typeof(geoLat) != 'undefined') {
         clearInterval(checkGeoInterval);
-        if (typeof(hotelName) != 'undefined') {
+        if (hotelNames.length > 0) {
             clearInterval(checkPageProcessedInterval);
-            retrieveHotel(hotelName);
+            tryNextHotel();
         }
     }
 }
