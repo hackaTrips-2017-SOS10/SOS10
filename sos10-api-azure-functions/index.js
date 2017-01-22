@@ -200,34 +200,6 @@ function calculateHotelDatasheet(hotelContents, successCallback) {
 
 }
 
-function calculateCO2Footprint(hotelFacilities) {
-    return 9.2;
-}
-
-function footprintToCategory(co2footprint) {
-    var category = 0;
-    switch (co2footprint) {
-        case (co2footprint < 3):
-            category = 0;
-            break;
-        case (co2footprint < 5):
-            category = 1;
-            break;
-        case (co2footprint < 7):
-            category = 2;
-            break;
-        case (co2footprint < 9):
-            category = 3;
-            break;
-        case (co2footprint < 12):
-            category = 4;
-            break;
-        default:
-            category = 5;
-    }
-    return category;
-}
-
 function distance(point1, point2) {
     return geolib.convertUnit('km', geolib.getDistance(point1, point2), 2);
 }
@@ -235,4 +207,51 @@ function distance(point1, point2) {
 function calculateFlightsCO2Footprint(distanceInKms) {
     let footprintPerKm = (distanceInKms < shortDistanceFlightThreshold) ? shortDistanceCO2PerKm : longDistanceCO2PerKm;
     return Math.round(((2 * footprintPerKm * distanceInKms) / 1000) * 100) / 100;
+}
+
+var facilityToCO2Footprint = {
+    "74-420": 20,  // Sauna
+    "60-190": -10,  // Central heating
+    "60-170": -10,  // Centrally regulated air conditioning
+    "70-70": 30,   // Lift access
+    "70-10": 40,   // Air conditioning in public areas
+    "71-575": 50,  // Air conditioning in restaurant
+    "73-363": 20,  // Outdoor freshwater pool
+};
+
+function calculateCO2Footprint(hotelFacilities) {
+    var co2footprint = 0;
+    hotelFacilities.forEach(function(facility) {
+        var key = facility.facilityGroupCode + "-" + facility.facilityCode;
+        if (getCO2FootprintForFacility(key) != undefined) {
+            co2footprint += getCO2FootprintForFacility(key);
+        }
+    });
+    return co2footprint;
+}
+
+function getCO2FootprintForFacility(facilityKey) {
+    return facilityToCO2Footprint[facilityKey];
+}
+
+function footprintToCategory(co2footprint) {
+    var category = 0;
+    switch (true) {
+        case (co2footprint > 350):
+            category = 5;
+            break;
+        case (co2footprint > 300):
+            category = 4;
+            break;
+        case (co2footprint > 250):
+            category = 3;
+            break;
+        case (co2footprint > 200):
+            category = 2;
+            break;
+        case (co2footprint > 150):
+            category = 1;
+            break;
+    }
+    return category;
 }
